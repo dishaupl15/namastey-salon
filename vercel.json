@@ -1,0 +1,7 @@
+{
+  "rootDirectory": "namastey-salon",
+  "buildCommand": "npm run build",
+  "outputDirectory": "namastey-salon/dist",
+  "installCommand": "npm install",
+  "framework": "vite"
+}
