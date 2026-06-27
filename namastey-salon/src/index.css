@@ -1,0 +1,281 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* =============================================
+   BASE LAYER — global resets & typography
+   ============================================= */
+@layer base {
+  html { scroll-behavior: smooth; }
+
+  body {
+    @apply bg-luxury-black text-beige font-body antialiased;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, h5 { @apply font-display; }
+
+  ::selection {
+    background: rgba(201, 168, 76, 0.3);
+    color: #f5f0e8;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-track { background: #0a0a0a; }
+  ::-webkit-scrollbar-thumb { background: #c9a84c; border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: #e2c97e; }
+}
+
+/* =============================================
+   COMPONENT LAYER — reusable design tokens
+   ============================================= */
+@layer components {
+
+  /* ----- BUTTONS ----- */
+  .btn-gold {
+    @apply relative inline-flex items-center justify-center gap-2
+           px-8 py-3.5
+           bg-gold-gradient bg-[length:200%_auto]
+           text-luxury-black font-body font-semibold text-xs tracking-[0.2em] uppercase
+           overflow-hidden
+           transition-all duration-400 ease-luxury
+           hover:bg-right hover:scale-[1.03] hover:shadow-gold-md
+           active:scale-[0.98];
+    background-size: 200% auto;
+  }
+  .btn-gold::before {
+    content: '';
+    @apply absolute inset-0 bg-card-shine opacity-0 transition-opacity duration-300;
+  }
+  .btn-gold:hover::before { @apply opacity-100; }
+
+  .btn-outline-gold {
+    @apply relative inline-flex items-center justify-center gap-2
+           px-8 py-3.5
+           border border-gold text-gold
+           font-body font-semibold text-xs tracking-[0.2em] uppercase
+           overflow-hidden
+           transition-all duration-400 ease-luxury
+           hover:text-luxury-black hover:shadow-gold-sm hover:scale-[1.03]
+           active:scale-[0.98];
+  }
+  .btn-outline-gold::before {
+    content: '';
+    @apply absolute inset-0 bg-gold scale-x-0 origin-left
+           transition-transform duration-400 ease-luxury -z-10;
+  }
+  .btn-outline-gold:hover::before { @apply scale-x-100; }
+
+  .btn-whatsapp {
+    @apply relative inline-flex items-center justify-center gap-2
+           px-8 py-3.5
+           bg-[#25D366] text-white
+           font-body font-semibold text-xs tracking-[0.2em] uppercase
+           overflow-hidden
+           transition-all duration-400
+           hover:bg-[#1ebe5d] hover:scale-[1.03] hover:shadow-[0_0_30px_rgba(37,211,102,0.4)]
+           active:scale-[0.98];
+  }
+
+  /* ----- SECTION WRAPPER ----- */
+  .section-wrapper {
+    @apply relative px-6 md:px-12 lg:px-24 py-section overflow-hidden;
+  }
+  .section-wrapper-sm {
+    @apply relative px-6 md:px-12 lg:px-24 py-section-sm overflow-hidden;
+  }
+
+  /* ----- SECTION HEADING GROUP ----- */
+  .section-eyebrow {
+    @apply block font-body text-xs text-gold tracking-[0.35em] uppercase mb-4;
+  }
+  .section-title {
+    @apply font-display text-display-lg text-beige leading-tight;
+  }
+  .section-subtitle {
+    @apply font-body text-base text-beige/60 leading-relaxed tracking-wide max-w-xl;
+  }
+  .gold-divider {
+    @apply w-12 h-px bg-gold my-6;
+  }
+  .gold-divider-center {
+    @apply w-12 h-px bg-gold mx-auto my-6;
+  }
+
+  /* ----- GLASS CARDS ----- */
+  .glass-card {
+    @apply relative
+           bg-white/[0.04] backdrop-blur-glass
+           border border-white/[0.08]
+           rounded-glass shadow-card
+           overflow-hidden;
+  }
+  .glass-card::before {
+    content: '';
+    @apply absolute inset-0 bg-card-shine pointer-events-none;
+  }
+
+  .glass-card-gold {
+    @apply glass-card
+           border-gold/20
+           hover:border-gold/40 hover:shadow-gold-sm
+           transition-all duration-400 ease-luxury;
+  }
+
+  .glass-card-dark {
+    @apply relative
+           bg-luxury-card/80 backdrop-blur-glass
+           border border-white/[0.05]
+           rounded-glass shadow-luxury
+           overflow-hidden;
+  }
+
+  /* ----- SERVICE CARD ----- */
+  .service-card {
+    @apply glass-card-gold p-0 cursor-pointer
+           hover:-translate-y-2 hover:shadow-gold-md
+           transition-all duration-400 ease-luxury;
+    will-change: transform;
+  }
+  .service-card-img {
+    @apply w-full h-52 object-cover transition-transform duration-600 ease-luxury;
+  }
+  .service-card:hover .service-card-img {
+    @apply scale-105;
+  }
+  .service-card-body {
+    @apply p-6 flex flex-col gap-3;
+  }
+
+  /* ----- STAT / WHY-US CARD ----- */
+  .stat-card {
+    @apply glass-card p-8 text-center
+           border-gold/10
+           hover:border-gold/30 hover:shadow-gold-sm hover:-translate-y-1
+           transition-all duration-400 ease-luxury;
+    will-change: transform;
+  }
+
+  /* ----- REVIEW CARD ----- */
+  .review-card {
+    @apply glass-card-dark p-7
+           hover:border-gold/20 hover:-translate-y-1
+           transition-all duration-400 ease-luxury;
+    will-change: transform;
+  }
+
+  /* ----- FORM INPUTS ----- */
+  .input-luxury {
+    @apply w-full bg-white/[0.04] border border-white/10
+           text-beige font-body text-sm tracking-wide
+           px-5 py-3.5 rounded-lg
+           placeholder:text-beige/30
+           focus:outline-none focus:border-gold/60 focus:bg-white/[0.07]
+           transition-all duration-300;
+  }
+  .label-luxury {
+    @apply block font-body text-xs text-gold/80 tracking-[0.15em] uppercase mb-2;
+  }
+
+  /* ----- GOLD TEXT / ACCENTS ----- */
+  .gold-text {
+    @apply text-gold;
+  }
+  .gold-gradient-text {
+    @apply bg-gold-gradient bg-clip-text text-transparent;
+    background-size: 200% auto;
+  }
+  .shimmer-text {
+    @apply bg-[length:200%_auto] bg-clip-text text-transparent animate-shimmer;
+    background-image: linear-gradient(90deg, #c9a84c 0%, #e2c97e 40%, #c9a84c 60%, #a07830 100%);
+  }
+
+  /* ----- DECORATIVE ELEMENTS ----- */
+  .gold-orb {
+    @apply absolute rounded-full pointer-events-none;
+    background: radial-gradient(circle, rgba(201,168,76,0.15) 0%, transparent 70%);
+    filter: blur(40px);
+  }
+  .noise-overlay {
+    @apply absolute inset-0 pointer-events-none opacity-[0.03];
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+    background-size: 200px 200px;
+  }
+
+  /* ----- NAV LINK ----- */
+  .nav-link {
+    @apply relative font-body text-xs text-beige/70 tracking-[0.15em] uppercase
+           transition-colors duration-300 hover:text-gold;
+  }
+  .nav-link::after {
+    content: '';
+    @apply absolute -bottom-1 left-0 w-0 h-px bg-gold
+           transition-all duration-300;
+  }
+  .nav-link:hover::after { @apply w-full; }
+  .nav-link.active { @apply text-gold; }
+  .nav-link.active::after { @apply w-full; }
+
+  /* ----- STAR RATING ----- */
+  .stars {
+    @apply flex gap-0.5;
+  }
+  .star { @apply text-gold text-base; }
+
+  /* ----- GALLERY ITEM ----- */
+  .gallery-item {
+    @apply relative overflow-hidden rounded-glass cursor-pointer;
+  }
+  .gallery-item img {
+    @apply w-full h-full object-cover transition-transform duration-600 ease-luxury;
+  }
+  .gallery-item:hover img {
+    @apply scale-110;
+  }
+  .gallery-item-overlay {
+    @apply absolute inset-0 flex items-center justify-center transition-all duration-400;
+    background: rgba(10,10,10,0);
+  }
+  .gallery-item:hover .gallery-item-overlay {
+    background: rgba(10,10,10,0.5);
+  }
+  .gallery-item-overlay span {
+    @apply text-gold font-display text-xl tracking-widest opacity-0 translate-y-3 transition-all duration-400;
+  }
+  .gallery-item:hover .gallery-item-overlay span {
+    @apply opacity-100 translate-y-0;
+  }
+}
+
+/* =============================================
+   UTILITIES LAYER — one-off helpers
+   ============================================= */
+@layer utilities {
+  .text-balance { text-wrap: balance; }
+
+  .bg-glass {
+    background: rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+
+  .border-glass { border: 1px solid rgba(255, 255, 255, 0.08); }
+  .border-gold-subtle { border: 1px solid rgba(201, 168, 76, 0.2); }
+
+  .mask-fade-bottom {
+    -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+    mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+  }
+
+  /* Scroll-triggered visibility */
+  .reveal { opacity: 0; transform: translateY(40px); }
+  .reveal.visible {
+    animation: fadeUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  }
+  .reveal-delay-1.visible { animation-delay: 0.1s; }
+  .reveal-delay-2.visible { animation-delay: 0.2s; }
+  .reveal-delay-3.visible { animation-delay: 0.3s; }
+  .reveal-delay-4.visible { animation-delay: 0.4s; }
+  .reveal-delay-5.visible { animation-delay: 0.5s; }
+}
